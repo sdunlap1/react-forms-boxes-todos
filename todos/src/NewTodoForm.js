@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid'; // Use uuid for unique IDs
+import { v4 as uuid } from 'uuid';
 
 function NewTodoForm({ addTodo }) {
   const [task, setTask] = useState('');
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    if (task.trim() === '') {
+      alert("Task can't be empty!");
+      return;
+    }
     addTodo({ task, id: uuid() });
     setTask(''); // Reset input field
   };

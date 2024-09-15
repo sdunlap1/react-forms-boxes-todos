@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Todo from './Todo';
 import NewTodoForm from './NewTodoForm';
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const initialTodos = JSON.parse(localStorage.getItem('todos')) || [];
+  const [todos, setTodos] = useState(initialTodos);
+
+  // Use useEffect to save todos to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = (newTodo) => {
     setTodos(todos => [...todos, newTodo]);
